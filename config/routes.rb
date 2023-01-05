@@ -9,6 +9,6 @@ Rails.application.routes.draw do
   # # Generates all routes. 
   # resources :birds
   # Generate using only:
-  resources :birds, only: [:index, :show, :create]
+  resources :birds, only: [:index, :show, :create, :update]
 
 end
