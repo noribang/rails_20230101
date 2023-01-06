@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   # # Generates all routes. 
   # resources :birds
   # Generate using only:
-  resources :birds, only: [:index, :show, :create, :update]
+  resources :birds, only: [:index, :show, :create, :update, :destroy]
   # PATCH custom route for likes
   patch "/birds/:id/like", to: "birds#increment_likes"
 
