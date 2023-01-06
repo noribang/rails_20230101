@@ -40,6 +40,20 @@ class BirdsController < ApplicationController
             render json: { error: "Bird not found."}, status: :not_found
         end
     end
+    # PATCH /birds/:id/like
+    def increment_likes
+        # Find bird by id.
+        bird = Bird.find_by(id: params[:id])
+        # If bird is found update increment likes.
+        if bird
+            bird.update(likes: bird.likes + 1)
+            render json: bird
+        # If not found render error message.
+        else
+            render json: { error: "Bird not found."}, status: :not_found
+        end
+    end
+
 
 
     private
