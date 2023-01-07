@@ -10,15 +10,21 @@ class BirdsController < ApplicationController
 
     # GET /birds/:id
     def show
-        # bird = Bird.find_by(id: params[:id])
-        bird = find_bird    
-        if bird
-            render json: bird
-        else
-            # render json: { error: "Bird not found" }, status: :not_found 
-            render_not_found_response
-        end
+        # # bird = Bird.find_by(id: params[:id])
+        # bird = find_bird    
+        # if bird
+        #     render json: bird
+        # else
+        #     # render json: { error: "Bird not found" }, status: :not_found 
+        #     render_not_found_response
+        # end
 
+        # If bird is found render JSON.
+        # Else throw error 404 and render error message.
+        bird = find_bird
+        render json: bird
+    rescue ActiveRecord::RecordNotFound
+        render_not_found_response
     end
 
     # POST /birds
@@ -33,15 +39,24 @@ class BirdsController < ApplicationController
 
     # PATCH /birds/:id
     def update
-        # bird = Bird.find_by(id: params[:id])
+        # # bird = Bird.find_by(id: params[:id])
+
+        # bird = find_bird
+        # if bird
+        #     bird.update(bird_params)
+        #     render json: bird
+        # else
+        #     # render json: { error: "Bird not found."}, status: :not_found
+        #     render_not_found_response
+        # end
+
+        # If bird is found update bird using strong params and render.
+        # Else throw 404 error and render error message.
         bird = find_bird
-        if bird
-            bird.update(bird_params)
-            render json: bird
-        else
-            # render json: { error: "Bird not found."}, status: :not_found
-            render_not_found_response
-        end
+        bird.update(bird_params)
+        render json: bird
+    rescue ActiveRecord::RecordNotFound
+        render_not_found_response
     end
     # PATCH /birds/:id/like
     def increment_likes
