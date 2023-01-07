@@ -85,7 +85,8 @@ class BirdsController < ApplicationController
     end
 
     def find_bird
-        Bird.find_by(id: params[:id])
+        # Bird.find_by(id: params[:id])
+        Bird.find(params[:id])
     end
 
 end
