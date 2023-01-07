@@ -10,8 +10,8 @@ class BirdsController < ApplicationController
 
     # GET /birds/:id
     def show
-        bird = Bird.find_by(id: params[:id])
-        # render json: bird
+        # bird = Bird.find_by(id: params[:id])
+        bird = find_bird    
         if bird
             render json: bird
         else
@@ -33,7 +33,8 @@ class BirdsController < ApplicationController
 
     # PATCH /birds/:id
     def update
-        bird = Bird.find_by(id: params[:id])
+        # bird = Bird.find_by(id: params[:id])
+        bird = find_bird
         if bird
             bird.update(bird_params)
             render json: bird
@@ -44,8 +45,9 @@ class BirdsController < ApplicationController
     end
     # PATCH /birds/:id/like
     def increment_likes
-        # Find bird by id.
-        bird = Bird.find_by(id: params[:id])
+        ## Find bird by id.
+        # bird = Bird.find_by(id: params[:id])
+        bird = find_bird
         # If bird is found update increment likes.
         if bird
             bird.update(likes: bird.likes + 1)
@@ -58,8 +60,9 @@ class BirdsController < ApplicationController
     end
     # DELETE /bird/:id
     def destroy
-        # Find bird by id.
-        bird = Bird.find_by(id: params[:id])
+        ## Find bird by id.
+        # bird = Bird.find_by(id: params[:id])
+        bird = find_bird
         # If bird found destroy bird
         if bird
             bird.destroy
@@ -79,6 +82,10 @@ class BirdsController < ApplicationController
 
     def render_not_found_response
         render json: { error: "Bird not found."}, status: :not_found
+    end
+
+    def find_bird
+        Bird.find_by(id: params[:id])
     end
 
 end
